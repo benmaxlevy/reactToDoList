@@ -8,6 +8,7 @@ const App = () => {
       <header className="App-header">
           <h2>To-Do List</h2>
           <h6>Ben Levy</h6>
+
           <List />
       </header>
     </div>
