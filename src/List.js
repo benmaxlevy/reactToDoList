@@ -35,9 +35,28 @@ const List = () => {
             let newList = [...toDoList];
             newList.splice(index, 1);
             setToDoList(newList);
-        }
+        };
+
+        const handleBegin = (index) => {
+            let newList = [...toDoList];
+            newList[index].startTime = new Date();
+            setToDoList(newList);
+            console.log(newList[index].startTime);
+        };
+
+        const handleStop = (index) => {
+            let newList = [...toDoList];
+            newList[index].endTime = new Date();
+            setToDoList(newList);
+            // milliseconds to minutes
+            let timeDiff = newList[index].endTime - newList[index].startTime;
+            let minutes = Math.floor((timeDiff % 3600000) / 60000);
+
+            console.log(minutes);
+        };
+
         return toDoList.map((item, index) => {
-            return ( <h3 key={index}> {item.item}: {item.hours}H:{item.minutes}M <Button variant="danger" type="submit" onClick={(event) => {handleDelete(index)}}>Delete</Button> </h3> );
+            return ( <h3 key={index}> {item.item}: {item.hours}H:{item.minutes}M <Button variant="success" type="submit" onClick={() => {handleBegin(index)}}>Begin</Button> <Button style={{color: "white"}} variant="warning" type="submit" onClick={() => {handleStop(index)}}>Stop</Button> <Button variant="danger" type="submit" onClick={(event) => {handleDelete(index)}}>Delete</Button> </h3> );
         });
     }
 
