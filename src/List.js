@@ -47,12 +47,19 @@ const List = () => {
         const handleStop = (index) => {
             let newList = [...toDoList];
             newList[index].endTime = new Date();
-            setToDoList(newList);
             // milliseconds to minutes
             let timeDiff = newList[index].endTime - newList[index].startTime;
             let minutes = Math.floor((timeDiff % 3600000) / 60000);
 
-            console.log(minutes);
+            // get hours and minutes combined from newList[index].hours and newList[index].minutes
+            let totalMinutes = parseInt(newList[index].hours) * 60 + parseInt(newList[index].minutes);
+
+            newList[index].hours = Math.floor((totalMinutes - minutes) / 60);
+            newList[index].minutes = (totalMinutes - minutes) % 60;
+
+            // reset
+            newList[index].startTime = new Date();
+            setToDoList(newList);
         };
 
         return toDoList.map((item, index) => {
